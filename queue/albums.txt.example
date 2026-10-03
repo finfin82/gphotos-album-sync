@@ -1,0 +1,11 @@
+# Eine Share-URL pro Zeile.
+# Zeilen mit # sind Kommentare. Der Worker entfernt erledigte URLs aus dieser Datei.
+#
+# Beispiel:
+# https://photos.app.goo.gl/xxxxxxxxxxxxxxxxxxxxxx
+#
+# Ergebnis auf der NAS:
+#   <DATA_DIR>/shared/<Albumname>/
+#
+# Denselben Link später nochmal einfügen = erneuter Sync
+# (vorhandene Dateinamen werden übersprungen, neue Dateien dazugemischt).

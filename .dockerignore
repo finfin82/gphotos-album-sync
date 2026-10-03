@@ -1,0 +1,13 @@
+.git
+.gitignore
+.venv
+__pycache__
+.pytest_cache
+tests
+data
+profile
+queue
+.env
+.env.example
+*.md
+Makefile

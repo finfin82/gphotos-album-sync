@@ -1,0 +1,40 @@
+name: gphotos-album-sync
+
+# Ein Service: Queue-Watcher + HTTP-API + Chromium.
+# Host-Pfad DATA_DIR auf die gewünschte NAS-Freigabe legen.
+# Ergebnis: <DATA_DIR>/shared/<Albumname>/
+
+services:
+  gphotos-album-sync:
+    build: .
+    image: gphotos-album-sync:local
+    container_name: gphotos-album-sync
+    restart: unless-stopped
+    init: true
+    shm_size: "2gb"
+    ports:
+      - "${HTTP_PORT:-8090}:8090"
+    environment:
+      GOOGLE_LANG: ${GOOGLE_LANG:-de}
+      OUTPUT_ROOT: /data/shared
+      HTTP_PORT: "8090"
+      POLL_SECONDS: ${POLL_SECONDS:-30}
+      CHROME_BINARY: ${CHROME_BINARY:-/usr/bin/chromium}
+      CHROMEDRIVER_PATH: ${CHROMEDRIVER_PATH:-/usr/bin/chromedriver}
+      WEB_DRIVER_WAIT: ${WEB_DRIVER_WAIT:-25}
+      DOWNLOAD_TIMEOUT: ${DOWNLOAD_TIMEOUT:-1800}
+      QUEUE_DIR: /queue
+      TEMP_DIR: /tmp/gp-downloads
+      PROFILE_DIR: /profile
+      USE_CHROME_PROFILE: ${USE_CHROME_PROFILE:-false}
+      SKIP_EXISTING: ${SKIP_EXISTING:-true}
+      HEADLESS: ${HEADLESS:-true}
+      DEBUG_DUMPS: ${DEBUG_DUMPS:-false}
+      WSL_INSIDE: "true"
+    volumes:
+      # Host-Seite: NAS-Freigabe / Sync-Zielverzeichnis
+      - ${DATA_DIR:-./data}:/data
+      - ${QUEUE_HOST:-./queue}:/queue
+      - ${PROFILE_HOST:-./profile}:/profile
+    security_opt:
+      - seccomp:unconfined

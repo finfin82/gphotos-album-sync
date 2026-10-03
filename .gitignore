@@ -1,0 +1,32 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+
+# Runtime data (NAS bind mounts)
+data/
+profile/
+queue/albums.txt
+queue/done.txt
+queue/failed.txt
+queue/debug/
+
+# Local download leftovers
+gp_temp/
+*.zip
+
+# Secrets / local runtime extras
+.env.*
+!.env.example
+queue/.queue.lock
+queue/*.lock
+*.pem
+*.key
+id_rsa*
+client_secret*.json
+**/Cookies
+**/Login Data
+**/Web Data
